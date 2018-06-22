@@ -1,14 +1,13 @@
 <template>
   <transition appear :name="transitionName">
-    <div class="Cookie" :class="[containerPosition, cookieTheme]" v-if="isOpen">
+    <div class="Cookie md" :class="[containerPosition, cookieTheme]" v-if="isOpen">
       <div class="Cookie__content">
         <slot name="message">{{ message }}</slot>
-      </div>
-      <div class="Cookie__buttons">
         <a :target="target" :href="buttonLink" v-if="externalButtonLink" :class="buttonClass">{{ buttonLinkText }}</a>
         <router-link :to="buttonLink" v-if="internalButtonLink" :class="buttonClass">{{ buttonLinkText }}</router-link>
         <div :class="buttonClass" @click="accept">{{ buttonText }}</div>
       </div>
+      <div class="Cookie__close" @click="close">x</div>
     </div>
   </transition>
 </template>
@@ -19,7 +18,7 @@
     props: {
       buttonText: {
         type: String,
-        default: 'Got it!'
+        default: 'Accept'
       },
       buttonLink: {
         type: [String, Object],
@@ -124,6 +123,9 @@
         this.setVisited()
         this.isOpen = false
         this.$emit('accept')
+      },
+      close () {
+        this.isOpen = false
       }
     }
   }
@@ -139,7 +141,7 @@
     z-index: 9999;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: baseline;
     flex-direction: column;
 
@@ -186,17 +188,33 @@
   .Cookie__button {
     cursor: pointer;
     align-self: center;
+    margin-left: 20px;
   }
+
+   @include media($sm-up) {
+     .Cookie__content {
+        display: flex;
+        flex-direction: row;
+        margin: auto;
+      }
+
+      .Cookie__close {
+        cursor: pointer;
+        margin-right: 100px;
+      }
+   }
+
+  
 
   @mixin generateTheme($theme, $backgroundColor, $fontColor, $buttonBackgroundColor, $buttonFontColor: #fff, $buttonRadius: 0) {
     .Cookie--#{$theme} {
       background: $backgroundColor;
       color: $fontColor;
-      padding: 1.250em;
+      padding: 0.500em;
 
         .Cookie__button {
           background: $buttonBackgroundColor;
-          padding: 0.625em 3.125em;
+          padding: 0.1em 1.125em;
           color: $buttonFontColor;
           border-radius: $buttonRadius;
 
