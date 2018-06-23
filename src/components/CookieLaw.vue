@@ -226,7 +226,7 @@
     }
   }
 
-  @include generateTheme('base', #F1F1F1, #232323, #97D058);
+  @include generateTheme('base', #F1F1F1, #232323, #ff9900);
   @include generateTheme('base--rounded', #F1F1F1, #232323, #97D058, #fff, 20px);
   @include generateTheme('blood-orange', #424851, #fff, #E76A68);
   @include generateTheme('blood-orange--rounded', #424851, #fff, #E76A68, #fff, 20px);
