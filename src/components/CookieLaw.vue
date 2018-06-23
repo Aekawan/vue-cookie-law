@@ -1,6 +1,6 @@
 <template>
   <transition appear :name="transitionName">
-    <div class="Cookie md" :class="[containerPosition, cookieTheme]" v-if="isOpen">
+    <div class="Cookie" :class="[containerPosition, cookieTheme]" v-if="isOpen">
       <div class="Cookie__content">
         <slot name="message">{{ message }}</slot>
         <a :target="target" :href="buttonLink" v-if="externalButtonLink" :class="buttonClass">{{ buttonLinkText }}</a>
@@ -126,6 +126,7 @@
       },
       close () {
         this.isOpen = false
+        this.$emit('close')
       }
     }
   }
